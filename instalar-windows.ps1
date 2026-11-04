@@ -11,31 +11,32 @@ $skillsDir = Join-Path $claudeDir "skills"
 New-Item -ItemType Directory -Force -Path $skillsDir | Out-Null
 
 # 1. Skills: un enlace por skill (así conviven con las que instales desde fuera)
-Get-ChildItem -Directory (Join-Path $repo "skills") | ForEach-Object {
-    $destino = Join-Path $skillsDir $_.Name
+foreach ($skill in Get-ChildItem -Directory (Join-Path $repo "skills")) {
+    $destino = Join-Path $skillsDir $skill.Name
     if (Test-Path $destino) {
         $item = Get-Item $destino -Force
-        if ($item.LinkType) { Remove-Item $destino -Force }
+        if ($item.LinkType) { $item.Delete() }   # borra solo el enlace, nunca el contenido del repo
         elseif (Test-Path (Join-Path $destino ".plaude")) { Remove-Item $destino -Recurse -Force }
         else {
-            Rename-Item $destino "$($_.Name).bak-$(Get-Date -Format yyyyMMddHHmmss)"
-            Write-Host "  Copia de seguridad de la skill existente: $($_.Name)"
+            Rename-Item $destino "$($skill.Name).bak-$(Get-Date -Format yyyyMMddHHmmss)"
+            Write-Host "  Copia de seguridad de la skill existente: $($skill.Name)"
         }
     }
     try {
         # Enlace simbólico: funciona con unidades de red (requiere Modo de desarrollador o admin)
-        New-Item -ItemType SymbolicLink -Path $destino -Target $_.FullName -ErrorAction Stop | Out-Null
-        Write-Host "OK skill (enlace): $($_.Name)"
+        New-Item -ItemType SymbolicLink -Path $destino -Target $skill.FullName -ErrorAction Stop | Out-Null
+        Write-Host "OK skill (enlace): $($skill.Name)"
     } catch {
+        Write-Host "  (sin enlace simbólico: $($_.Exception.Message.Trim()))"
         try {
             # Junction: solo si el repo está en un disco local
-            New-Item -ItemType Junction -Path $destino -Target $_.FullName -ErrorAction Stop | Out-Null
-            Write-Host "OK skill (junction): $($_.Name)"
+            New-Item -ItemType Junction -Path $destino -Target $skill.FullName -ErrorAction Stop | Out-Null
+            Write-Host "OK skill (junction): $($skill.Name)"
         } catch {
             # Último recurso: copia (vuelve a ejecutar el instalador después de cada git pull)
-            Copy-Item $_.FullName $destino -Recurse
+            Copy-Item $skill.FullName $destino -Recurse
             New-Item -ItemType File -Path (Join-Path $destino ".plaude") | Out-Null
-            Write-Host "OK skill (copia): $($_.Name)  -> tras 'git pull' vuelve a ejecutar este script"
+            Write-Host "OK skill (copia): $($skill.Name)  -> tras 'git pull' vuelve a ejecutar este script"
         }
     }
 }

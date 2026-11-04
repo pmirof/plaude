@@ -36,13 +36,14 @@ Una regla: **una necesidad, una skill**.
 
 | Fase | Skill | Origen |
 |---|---|---|
-| Entender qué hay que hacer | `grill-me` | externa |
+| Entender qué hay que hacer | [`grill-me`](skills/grill-me/SKILL.md) | **plaude** |
 | No complicar las cosas | `karpathy-guidelines` | externa |
 | Principios de diseño | `frontend-design` | externa (oficial de Anthropic) |
 | Estilos, paletas y tipografías | `ui-ux-pro-max` | externa |
 | Inspiración y animaciones | [`no-ai-look`](skills/no-ai-look/SKILL.md) | **plaude** |
 | Limpiar código generado por IA | [`deslop-safe`](skills/deslop-safe/SKILL.md) | **plaude** |
-| Seguridad general | `static-analysis`, `differential-review` | externa (Trail of Bits) |
+| Revisión de código y seguridad de los cambios | `code-review`, `security-review` | nativas de Claude Code |
+| Escaneos de seguridad (CodeQL, Semgrep) | `static-analysis` | externa (Trail of Bits) |
 | Seguridad PHP y WordPress | [`wordpress-hardening`](skills/wordpress-hardening/SKILL.md) | **plaude** |
 | Probar en el navegador | `webapp-testing` | externa (oficial de Anthropic) |
 | Revisión antes de producción | [`preflight-check`](skills/preflight-check/SKILL.md) | **plaude** |
@@ -51,6 +52,11 @@ Una regla: **una necesidad, una skill**.
 ---
 
 ## Las skills de plaude
+
+### `grill-me`
+Antes de programar, pregunta una cosa cada vez y propone siempre una respuesta recomendada, hasta aclarar las decisiones importantes. Lo que puede averiguar leyendo el código no lo pregunta. Termina con un resumen y pasa al plan.
+
+**Por qué propia:** parte de la idea de la `grill-me` de Matt Pocock, pero aquella ya solo delega en otra skill y Claude no puede lanzarla por su cuenta. Esta funciona sola y Claude la usa sin que haya que pedírselo.
 
 ### `deslop-safe`
 Repasa el código que ha escrito la IA y quita lo que sobra: comentarios que repiten el código, `try/catch` que no hacen nada, clases que se usan una vez, logs olvidados, mensajes de error con emojis. No toca el comportamiento.
@@ -133,6 +139,7 @@ plaude/
 ├── skills/
 │   ├── copywriter-ca-es/
 │   ├── deslop-safe/
+│   ├── grill-me/
 │   ├── no-ai-look/
 │   ├── preflight-check/
 │   └── wordpress-hardening/
@@ -154,7 +161,8 @@ Issues y PRs bienvenidos, sobre todo si una skill falla en un caso concreto. Ún
 - **Pau**, autor de **plaude**.
 - **Carlos**, por el nombre.
 - **Claude**, que ayudó a escribir las skills y, de paso, este README.
-- [Matt Pocock](https://github.com/mattpocock/skills), [forrestchang](https://github.com/forrestchang/andrej-karpathy-skills) (a partir de las ideas de Andrej Karpathy), [Anthropic](https://github.com/anthropics/skills), [nextlevelbuilder](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) y [Trail of Bits](https://github.com/trailofbits/skills), por las skills externas.
+- [Matt Pocock](https://github.com/mattpocock/skills), por la idea de `grill-me`.
+- [forrestchang](https://github.com/forrestchang/andrej-karpathy-skills) (a partir de las ideas de Andrej Karpathy), [Anthropic](https://github.com/anthropics/skills), [nextlevelbuilder](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) y [Trail of Bits](https://github.com/trailofbits/skills), por las skills externas.
 
 ## Licencia
 
