@@ -1,6 +1,7 @@
 ---
 name: grill-me
-description: Úsala antes de planificar o programar una tarea no trivial, o cuando pidan que les interroguen sobre un plan o diseño: hace preguntas una a una, con una respuesta recomendada, hasta aclarar las decisiones importantes.
+description: >-
+  Úsala antes de planificar o programar una tarea no trivial, o cuando pidan que les interroguen sobre un plan o diseño: hace preguntas una a una, con una respuesta recomendada, hasta aclarar las decisiones importantes.
 ---
 
 # Interrogatorio antes de programar

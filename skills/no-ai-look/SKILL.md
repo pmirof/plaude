@@ -1,20 +1,17 @@
 ---
 name: no-ai-look
-description: Úsala al diseñar o maquetar interfaces web para que no parezcan hechas por IA: dirección visual propia, referencias reales para inspirarse y recursos de animación.
+description: >-
+  Úsala cuando una interfaz web necesite referencias visuales concretas, una revisión de su coherencia visual o criterio para diseñar el movimiento.
 ---
 
 # Diseño que no parezca IA + animaciones
 
-Complementa a la skill `frontend-design`: esta se centra en evitar la estética genérica de IA, en inspirarse en referencias reales y en añadir movimiento con criterio.
+Usa `frontend-design` para la dirección visual general cuando esté disponible. Esta guía concreta las referencias visuales y el movimiento.
 
 ## 1. Antes de diseñar: elegir una dirección
-Decidir y enunciar en 2-3 líneas:
-- **Tono**: editorial, brutalista, técnico, cálido, lujo, juguetón, institucional...
-- **Referencia**: 1-2 webs o estilos reales en los que inspirarse (ver lista abajo).
-- **Tipografía**: una pareja concreta (titular + texto), nunca la combinación por defecto.
-- **Paleta**: 1 color protagonista + neutros. Justificarla con la marca o el sector.
+Parte del público, el objetivo principal de la pantalla y su contenido real. Si el proyecto tiene marca o sistema de diseño, reutiliza sus componentes, estilos y tokens. En un tema de bloques, revisa `theme.json` y los patrones existentes.
 
-Si el proyecto ya tiene marca (colores, logo, tipografías), esa dirección manda.
+Si hay que definir una dirección nueva, elige el tono, una o dos referencias reales y un criterio claro para la tipografía y la paleta. Consulta `ui-ux-pro-max` cuando necesites explorar opciones concretas.
 
 ## 2. Señales de "diseño hecho por IA" a evitar
 - Degradados morado/azul y fondos con blobs difuminados.
@@ -26,10 +23,9 @@ Si el proyecto ya tiene marca (colores, logo, tipografías), esa dirección mand
 
 ## 3. Qué hacer en su lugar
 - Jerarquía tipográfica fuerte: titulares grandes, contraste real de tamaños y pesos.
-- Rejillas asimétricas, alineación a la izquierda, espacio en blanco intencionado.
-- Un elemento memorable por página (una tipografía, una foto, un layout, una interacción).
-- Contenido real o realista, nunca lorem ipsum ni frases genéricas.
-- Detalles: estados hover/focus cuidados, microcopy concreto, iconos de un mismo set (Lucide, Phosphor, Tabler).
+- Elegir la rejilla y el espacio según la jerarquía y la tarea. Una landing y un panel de administración suelen pedir ritmos distintos.
+- Usar contenido real o representativo. En webs bilingües, probar las dos versiones con textos de longitud real.
+- Revisar los estados que el componente pueda tener, incluidos foco, carga, vacío, error y éxito. Mantener las convenciones de iconos y componentes del proyecto.
 
 ## 4. Dónde inspirarse
 - **Webs premiadas / galerías**: Awwwards, Godly, Land-book, Lapa Ninja, One Page Love, SiteInspire.
@@ -42,19 +38,13 @@ Cuando sea útil, buscar 2-3 referencias concretas y explicar qué se toma de ca
 
 ## 5. Animaciones
 ### Librerías según el caso
-- **CSS puro** (transitions, @keyframes, `animation-timeline: view()` para scroll): primera opción para cosas simples y para WordPress/PHP.
-- **GSAP** (+ ScrollTrigger): animaciones de scroll y timelines complejas, funciona en cualquier stack.
-- **Motion** (antes Framer Motion): proyectos React.
-- **Lenis**: scroll suave.
-- **Lottie / dotLottie**: animaciones vectoriales exportadas de After Effects.
-- **AutoAnimate**: animar listas y cambios de layout con una línea.
+- Empieza con CSS para transiciones y feedback sencillos. Para scroll, cambios de vista o animaciones de entrada y salida, consulta `modern-web-guidance` si está disponible y comprueba los navegadores objetivo.
+- Reutiliza la librería del proyecto si una secuencia compleja la necesita. Considera GSAP para cronologías o Motion para transiciones de layout en React cuando la interacción lo justifique.
 
 ### Criterios
 - Animar con intención: guiar la vista, dar feedback o marcar jerarquía. No animar todo.
-- Duraciones 150-400 ms para UI, easing `ease-out` o curvas personalizadas; nada de `linear` en UI.
-- Animar solo `transform` y `opacity` para rendimiento.
-- Entradas escalonadas (stagger) sutiles en listas y secciones.
-- Respetar siempre `prefers-reduced-motion`.
+- Prioriza `transform` y `opacity` cuando encajen y comprueba el coste de las animaciones que cambian el layout.
+- Respeta `prefers-reduced-motion`. El contenido y el feedback deben seguir disponibles si se reduce el movimiento o la API de animación no está soportada.
 
 ## 6. Revisión final
-Antes de entregar, si hay navegador disponible, abrir la página, hacer captura en escritorio y móvil, y comprobar: ¿parece una plantilla genérica? Si sí, cambiar al menos tipografía, layout del hero y paleta antes de entregar.
+Si hay navegador, revisa y captura las vistas modificadas en móvil y escritorio. En una pantalla existente, compara con el estado anterior usando los mismos datos y tamaño de ventana. Comprueba jerarquía, desbordamientos con contenido real, estados interactivos y movimiento reducido cuando aplique. Si cambian los estilos de un tema de bloques, comprueba cómo se ven en el editor y en la web. Corrige las diferencias que perjudiquen el uso o rompan la coherencia con el producto.

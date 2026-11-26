@@ -18,6 +18,8 @@
 - Sin comentarios obvios ni código de depuración olvidado (skill `deslop-safe`).
 - Seguridad siempre en PHP/WordPress (skill `wordpress-hardening`).
 - Nunca credenciales ni secretos en el código o en git.
+- Antes de implementar HTML, CSS o JavaScript del navegador, consulta `modern-web-guidance:modern-web-guidance` si está disponible. Aplica las guías pertinentes según los navegadores que deba soportar el proyecto.
 
 ## Diseño
-- Interfaces que no parezcan hechas por IA: `frontend-design` + `ui-ux-pro-max` + `no-ai-look`.
+- Empieza por la marca, los componentes y los tokens del proyecto. En temas de bloques, revisa `theme.json` y los patrones existentes.
+- Usa `frontend-design` para definir la dirección visual. Recurre a `no-ai-look` cuando hagan falta referencias, criterio de movimiento o una revisión visual. Consulta `ui-ux-pro-max` para explorar opciones de tipografía, color y estilo.

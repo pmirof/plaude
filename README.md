@@ -29,7 +29,7 @@ El nombre viene de Carlos, compañero de trabajo, que empezó a llamarme Plaude 
 
 Una regla: **una necesidad, una skill**.
 
-- **Si alguien ya lo ha resuelto bien**, se usa su skill y se instala desde su repo. No se copia aquí, así se actualiza sola y cada autor mantiene su licencia.
+- **Si alguien ya lo ha resuelto bien**, se usa su skill y se instala desde su repo, con la licencia de su autor.
 - **Si lo que existe no encaja**, porque es demasiado genérico o no sabe nada de PHP, WordPress o catalán, hay una skill propia.
 
 ### Qué cubre cada una
@@ -38,14 +38,20 @@ Una regla: **una necesidad, una skill**.
 |---|---|---|
 | Entender qué hay que hacer | [`grill-me`](skills/grill-me/SKILL.md) | **plaude** |
 | No complicar las cosas | `karpathy-guidelines` | externa |
-| Principios de diseño | `frontend-design` | externa (oficial de Anthropic) |
-| Estilos, paletas y tipografías | `ui-ux-pro-max` | externa |
-| Inspiración y animaciones | [`no-ai-look`](skills/no-ai-look/SKILL.md) | **plaude** |
+| Dirección visual | `frontend-design` | externa (oficial de Anthropic) |
+| Consulta de estilos, paletas y tipografías | `ui-ux-pro-max` | externa opcional |
+| Referencias visuales y movimiento | [`no-ai-look`](skills/no-ai-look/SKILL.md) | **plaude** |
+| Implementación frontend y compatibilidad entre navegadores | `modern-web-guidance` | externa (Google Chrome) |
+| Detectar herramientas y versiones de un proyecto WordPress | `wp-project-triage` | externa (WordPress) |
+| Arquitectura y ciclo de vida de plugins | `wp-plugin-development` | externa (WordPress) |
+| Desarrollo de bloques y temas de bloques | `wp-block-development`, `wp-block-themes` | externas opcionales (WordPress) |
 | Limpiar código generado por IA | [`deslop-safe`](skills/deslop-safe/SKILL.md) | **plaude** |
 | Revisión de código y seguridad de los cambios | `code-review`, `security-review` | nativas de Claude Code |
 | Escaneos de seguridad (CodeQL, Semgrep) | `static-analysis` | externa (Trail of Bits) |
 | Seguridad PHP y WordPress | [`wordpress-hardening`](skills/wordpress-hardening/SKILL.md) | **plaude** |
-| Probar en el navegador | `webapp-testing` | externa (oficial de Anthropic) |
+| Comprobaciones puntuales en el navegador | `webapp-testing` | externa (oficial de Anthropic) |
+| Levantar un WordPress desechable | `wp-playground` | externa (WordPress) |
+| Escribir pruebas automatizadas de WordPress | [`wordpress-testing`](skills/wordpress-testing/SKILL.md) | **plaude** |
 | Revisión antes de producción | [`preflight-check`](skills/preflight-check/SKILL.md) | **plaude** |
 | Textos en catalán y castellano | [`copywriter-ca-es`](skills/copywriter-ca-es/SKILL.md) | **plaude** |
 
@@ -64,14 +70,18 @@ Repasa el código que ha escrito la IA y quita lo que sobra: comentarios que rep
 **Por qué propia:** las versiones públicas (deslop y similares) están bien, pero no saben que en WordPress un nonce o un `esc_html` no son "código defensivo innecesario". Esta sí lo sabe, y no se carga la seguridad por limpiar.
 
 ### `no-ai-look`
-Antes de diseñar, obliga a decidir un tono, una referencia real, una tipografía y una paleta. Tiene una lista de cosas prohibidas (degradados morados, tres tarjetas iguales con icono, el hero de "Transforma tu negocio"), una lista de webs donde inspirarse y una guía de qué librería de animación usar según el caso: CSS, GSAP, Motion o Lottie.
+Ayuda a encontrar referencias concretas y a decidir cómo animar con criterio. En una interfaz existente, parte de su marca y componentes y revisa los cambios con contenido real en móvil y escritorio.
 
-**Por qué propia:** `frontend-design` y `ui-ux-pro-max` dan principios y catálogo, pero ninguna dice dónde mirar ni cómo animar sin pasarse. Esta llena ese hueco y no repite lo que ya hacen las otras.
+**Por qué propia:** reúne mis referencias visuales y los criterios de movimiento que uso para decidir cuándo basta CSS y cuándo hace falta algo más.
 
 ### `wordpress-hardening`
-Reglas concretas para PHP y WordPress: sanitizar la entrada, escapar la salida, nonces, `current_user_can`, `$wpdb->prepare`, subidas de archivos, sesiones, secretos y cabeceras. Sirve para escribir código y para auditarlo. En el segundo caso devuelve un informe ordenado por gravedad.
+Reglas concretas para PHP y WordPress sobre validación, escapado, nonces, permisos, consultas, subidas de archivos, sesiones y dependencias. Sirve para escribir código y para auditarlo con los controles de OWASP ASVS que apliquen. El informe ordena los hallazgos por gravedad.
 
 **Por qué propia:** las de Trail of Bits son muy buenas pero genéricas. Esta conoce las funciones de WordPress por su nombre.
+
+### `wordpress-testing`
+
+Ayuda a dejar una regresión reproducible en el proyecto. Usa PHPUnit con WordPress para comprobar hooks, permisos, guardado y migraciones, y Playwright para recorridos que necesitan un navegador.
 
 ### `preflight-check`
 La última revisión antes de subir. Comprueba que funciona (con pruebas reales, no a ojo), la seguridad, el rendimiento, la accesibilidad, el SEO, la limpieza y el plan de despliegue. Llama a las demás skills cuando las necesita y termina con un veredicto:
@@ -122,7 +132,7 @@ Para comprobar la instalación: abrir Claude Code, ejecutar `/memory` (debe apar
 
 ### Skills externas
 
-Instaladas desde su autor original. Los comandos están en [EXTERNAS.md](EXTERNAS.md).
+Se instalan por separado desde su autor original. Los comandos están en [EXTERNAS.md](EXTERNAS.md).
 
 ### App de Claude (web, escritorio, móvil)
 
@@ -142,7 +152,8 @@ plaude/
 │   ├── grill-me/
 │   ├── no-ai-look/
 │   ├── preflight-check/
-│   └── wordpress-hardening/
+│   ├── wordpress-hardening/
+│   └── wordpress-testing/
 ├── instalar-mac.sh
 ├── instalar-windows.ps1
 └── LICENSE
@@ -163,6 +174,8 @@ Issues y PRs bienvenidos, sobre todo si una skill falla en un caso concreto. Ún
 - **Claude**, que ayudó a escribir las skills y, de paso, este README.
 - [Matt Pocock](https://github.com/mattpocock/skills), por la idea de `grill-me`.
 - [forrestchang](https://github.com/forrestchang/andrej-karpathy-skills) (a partir de las ideas de Andrej Karpathy), [Anthropic](https://github.com/anthropics/skills), [nextlevelbuilder](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) y [Trail of Bits](https://github.com/trailofbits/skills), por las skills externas.
+- [Google Chrome y colaboradores](https://github.com/GoogleChrome/modern-web-guidance), por `modern-web-guidance`.
+- [WordPress y sus colaboradores](https://github.com/WordPress/agent-skills), por las skills oficiales de WordPress.
 
 ## Licencia
 

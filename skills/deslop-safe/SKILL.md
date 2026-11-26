@@ -1,6 +1,7 @@
 ---
 name: deslop-safe
-description: Úsala para revisar y limpiar código generado por IA: quita comentarios obvios, abstracciones innecesarias, código defensivo inútil y verborrea, sin cambiar el comportamiento.
+description: >-
+  Úsala para revisar y limpiar código generado por IA: quita comentarios obvios, abstracciones innecesarias, código defensivo inútil y verborrea, sin cambiar el comportamiento.
 ---
 
 # Limpiar AI slop del código
@@ -22,14 +23,14 @@ Objetivo: que el código parezca escrito por un desarrollador senior con criteri
 - Fallbacks que esconden errores reales.
 
 ### Sobreingeniería
-- Clases, interfaces, factories o helpers usados una sola vez → inline.
+- Integra una abstracción de un solo uso si mejora la lectura y conserva los límites que usan el proyecto y sus pruebas.
 - Configuración/parametrización "por si acaso" que nadie usa.
 - Capas de abstracción sin una segunda implementación.
 - Constantes para valores usados una vez y autoexplicativos.
 
 ### Verborrea
 - Variables intermedias que no aportan claridad.
-- `if (x) return true; else return false;` → `return x;`
+- Simplifica retornos condicionales conservando el tipo. En JavaScript, `return x` solo sustituye a `if (x) return true; else return false;` si `x` es booleano.
 - Nombres excesivamente largos o genéricos (`dataResult`, `handleProcessData`, `utilsHelper`).
 - Logs de depuración olvidados.
 
@@ -46,7 +47,7 @@ Objetivo: que el código parezca escrito por un desarrollador senior con criteri
 1. Leer el archivo completo y el código del proyecto que lo rodea para conocer sus convenciones.
 2. Si existe `git diff`, centrarse en lo añadido recientemente, no en código antiguo ajeno.
 3. Aplicar los cambios.
-4. Comprobar que nada se rompe: ejecutar tests, linter o al menos una revisión de que la lógica es idéntica.
+4. Ejecutar las pruebas relevantes para comprobar el comportamiento y usar el linter para el estilo. Si no puedes ejecutar las pruebas, deja constancia.
 5. Resumir en 3-5 líneas qué tipo de cosas se han quitado (no una lista de cada línea).
 
 ## Qué NO hacer
